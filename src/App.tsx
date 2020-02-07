@@ -1,24 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Route, Switch, BrowserRouter } from 'react-router-dom'
+import { PrivateRoute } from './PrivateRoute/ProtectedRoute'
 import './App.css';
+import Register from './components/Register';
+import Login from './components/Login';
+import Nav from './components/Nav';
+import GetAllContacts from './components/GetAllContacts';
+import PostContact from './components/PostContact';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Nav />
+        <Switch>
+          <Route exact path="/">
+            <Register />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <PrivateRoute path="/contacts">
+            <GetAllContacts />
+          </PrivateRoute>
+          <PrivateRoute path="/post">
+            <PostContact />
+          </PrivateRoute>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
